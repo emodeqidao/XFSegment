@@ -1,0 +1,102 @@
+//
+//  PrefixHeader.pch
+//  XFSegment
+//
+//  Created by xixi_wen on 2020/8/11.
+//  Copyright © 2020 xixi_wen. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#define APP_Delegate (AppDelegate*)([UIApplication sharedApplication].delegate)
+
+#define XFPUSH_CONTROL_STR(classNameStr){\
+[self.navigationController pushViewController:[[NSClassFromString(classNameStr) alloc] init] animated:YES];\
+}
+
+
+#define WeakSelf(weakSelf)  __weak __typeof(&*self)weakSelf = self;
+#define WeakId(weakId, idx)  __weak __typeof(&*idx)weakId = idx;
+#define kWeakSelf(type)       __weak __typeof__(type) weak##type = type;
+#define kStrongSelf(type)   __strong __typeof__(type) strong##type = type;
+#define xfWeakSelf       __weak __typeof__(self) weakSelf = self;
+#define xfStrongSelf   __strong __typeof__(weakSelf) strongSelf = weakSelf;
+
+#define ImageWithName(name) [UIImage imageNamed:name]
+#define ImageWithNameWithAlwaysOriginal(name) [[UIImage imageNamed:name] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+
+#define onePx (1 / [UIScreen mainScreen].scale)
+#define SINGLE_LINE_ADJUST_OFFSET  ((1 / [UIScreen mainScreen].scale) / 2.0f)
+
+//common
+#define kScreen_Height [UIScreen mainScreen].bounds.size.height
+#define kScreen_Width [UIScreen mainScreen].bounds.size.width
+#define iphoneX (kStatusBarHeight > 20.f ? YES : NO)
+
+#define kScreenScale [UIScreen mainScreen].scale
+#define kIphoneXR (iphoneX && ([UIScreen mainScreen].scale == 2))
+
+#define kStatusBarHeight [[UIApplication sharedApplication] statusBarFrame].size.height
+#define kNavBarHeight 44.0
+#define kNavRealBarHeight 64.0
+#define kNavigationBar_HeightForiOS11 (kStatusBarHeight + kNavBarHeight)
+#define IPhoneX_AddHeight ([[UIApplication sharedApplication] statusBarFrame].size.height - 20.0f)
+
+#define kIsIPhone6p6sp7p8p [UIScreen mainScreen].bounds.size.width == 414 && [UIScreen mainScreen].bounds.size.height == 736
+
+#define kTabBar_MiddleBtnHeight 69.0f
+#define kTabBar_HeightForiOS11 (iphoneX ? 83.0f : 49.0f)
+#define IOS_VESION [[[UIDevice currentDevice] systemVersion] floatValue]
+#define kIphoneXBottomHeight (iphoneX ? 34.0f : 0.0f)
+#define NormalLimit 20.0f
+
+#define kScaleWidth(v)  ((v)/375.0f * kScreen_Width)
+#define kScaleHeight(v) ((v)/667.0f * kScreen_Height)
+//frame
+#define SetFrame(x,y,w,h) CGRectMake(x, y, w, h)
+
+#define XFButtonRadius 22.f
+
+#define SAFEAREA_BOTTOM_AT(View) ({ \
+CGFloat bottom = 0.0; \
+if (@available(iOS 11.0, *)) { \
+bottom = View.safeAreaInsets.bottom; \
+} \
+bottom; \
+})
+
+
+//Font
+#define kFont(textSize)        [UIFont systemFontOfSize:textSize]
+//#define kFontMedium(textSize)   [UIFont systemFontOfSize:textSize weight:UIFontWeightMedium]
+#define kFontMedium(textSize) [UIFont fontWithName:@"PingFangSC-Medium" size:textSize]
+#define kFontRegular(textSize) [UIFont fontWithName:@"PingFangSC-Regular" size:textSize]
+#define kFontSemibold(textSize) [UIFont fontWithName:@"PingFangSC-Semibold" size:textSize]
+#define kFontLight(textSize) [UIFont fontWithName:@"PingFangSC-Light" size:textSize]
+#define kFontBold(textSize)    [UIFont systemFontOfSize:textSize weight:UIFontWeightBold]
+#define kFontHeavy(textSize)   [UIFont systemFontOfSize:textSize weight:UIFontWeightHeavy]
+
+
+#define kIsUserYXAppKey 0
+#define kIsUserYXTab 0
+
+
+//NSLog
+#ifndef __OPTIMIZE__
+#define NSLog(format, ...) do {                                                                          \
+fprintf(stderr, "<%s : %d> %s\n",                                           \
+[[[NSString stringWithUTF8String:__FILE__] lastPathComponent] UTF8String],  \
+__LINE__, __func__);                                                        \
+(NSLog)((format), ##__VA_ARGS__);                                           \
+fprintf(stderr, "-------\n");                                               \
+} while (0)
+#else
+#define NSLog(...) {}
+#endif
+
+
+#endif /* PrefixHeader_pch */
