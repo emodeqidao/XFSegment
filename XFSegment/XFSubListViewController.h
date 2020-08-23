@@ -9,12 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "XFBaseTableView.h"
 #import "XFBaseCollectionView.h"
+#import "HomeViewController.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface XFSubListViewController : UIViewController
 @property (nonatomic, strong) XFBaseTableView *tableView;
 @property (nonatomic, strong) XFBaseCollectionView *collectView;
+@property (nonatomic, weak) HomeViewController *parentVC;
 @end
 
 NS_ASSUME_NONNULL_END

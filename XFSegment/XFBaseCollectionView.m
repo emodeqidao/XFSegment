@@ -18,11 +18,11 @@
 ////    }
 ////    NSLog(@"!! array: %@", _allowGestureSimultaneouslyViewsArray);
 ////    NSLog(@"!!: %@", view);
-//    if ([_allowGestureSimultaneouslyViewsArray containsObject:view]) {
+    if ([_allowGestureSimultaneouslyViewsArray containsObject:view]) {
         return YES;
-//    } else {
-//        return NO;
-//    }
+    } else {
+        return NO;
+    }
 }
 
 @end

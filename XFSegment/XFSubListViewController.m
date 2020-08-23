@@ -11,6 +11,7 @@
 @interface XFSubListViewController ()
 //<UITableViewDelegate, UITableViewDataSource>
 <UICollectionViewDataSource, UICollectionViewDelegate>
+@property (nonatomic, assign) BOOL canContentScroll;
 @end
 
 @implementation XFSubListViewController
@@ -18,7 +19,11 @@
 -(instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        
+        [NSNotificationCenter.defaultCenter addObserverForName:@"noti" object:self.parentVC.collectView queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+            NSLog(@"<>通知滚动!");
+            BOOL canScroll = [note.userInfo[@"canScroll"] boolValue];
+            self.canContentScroll = canScroll;
+        }];
     }
     return self;
 }
@@ -32,15 +37,15 @@
 - (XFBaseCollectionView *)collectView {
     if (!_collectView) {
         
-//        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
-//        
-//        _collectView = [[XFBaseCollectionView alloc] initWithFrame:SetFrame(0, 50, kScreen_Width, self.frame.size.height - 50 - kNavigationBar_HeightForiOS11 - 44) collectionViewLayout:flowLayout];
-//        _collectView.delegate = self;
-//        _collectView.dataSource = self;
-//        _collectView.backgroundColor = [UIColor redColor];
-////        _collectView.showsVerticalScrollIndicator = NO;
-//
-//        [_collectView registerClass:UICollectionViewCell.class forCellWithReuseIdentifier:UICollectionViewCell.description];
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        
+        _collectView = [[XFBaseCollectionView alloc] initWithFrame:SetFrame(0, 50, kScreen_Width, 300) collectionViewLayout:flowLayout];
+        _collectView.delegate = self;
+        _collectView.dataSource = self;
+        _collectView.backgroundColor = [UIColor redColor];
+//        _collectView.showsVerticalScrollIndicator = NO;
+
+        [_collectView registerClass:UICollectionViewCell.class forCellWithReuseIdentifier:UICollectionViewCell.description];
     }
     return _collectView;
 }
@@ -118,7 +123,21 @@
 
 
 
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    NSLog(@"_canContentScroll: %d", _canContentScroll);
+//    NSLog(@"_contentOffset: %f", scrollView.contentOffset.y);
+    NSLog(@"<>3");
+    if (!_canContentScroll) {
+        NSLog(@"<>4");
+        // 这里通过固定contentOffset，来实现不滚动
+        scrollView.contentOffset = CGPointZero;
+    } else if (scrollView.contentOffset.y <= 0) {
+        NSLog(@"<>5");
+        _canContentScroll = NO;
+        // 通知容器可以开始滚动
+        self.parentVC.canScroll = YES;
+    }
+}
 
 /*
 #pragma mark - Navigation

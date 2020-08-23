@@ -16,7 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SectionCell : UICollectionViewCell
 //@property (nonatomic, strong) XFBaseTableView *tableView;
 @property (nonatomic, strong) XFBaseCollectionView *collectView;
-@property (nonatomic, strong) HomeViewController *parentVC;
+@property (nonatomic, weak) HomeViewController *parentVC;
+
+- (void)setData;
 @end
 
 NS_ASSUME_NONNULL_END

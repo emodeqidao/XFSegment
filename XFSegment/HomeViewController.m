@@ -23,7 +23,7 @@
     self.view.backgroundColor = [UIColor blueColor];
     self.canScroll = YES;
     [self.view addSubview:self.collectView];
-    
+    NSLog(@"main collection: %@", self.collectView);
 }
 
 - (XFBaseCollectionView *)collectView {
@@ -60,8 +60,9 @@
     if (indexPath.section == 1) {
         SectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SectionCell.description forIndexPath:indexPath];
         cell.parentVC = self;
+        [cell setData];
         cell.backgroundColor = [UIColor blackColor];
-//        self.collectView.allowGestureSimultaneouslyViewsArray = [NSMutableArray arrayWithArray:@[cell.collectView]];
+        self.collectView.allowGestureSimultaneouslyViewsArray = [NSMutableArray arrayWithArray:@[cell.collectView]];
         return cell;
     } else {
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:UICollectionViewCell.description forIndexPath:indexPath];
@@ -96,15 +97,51 @@
     if (self.collectView.visibleCells.count) {
         CGFloat y = [self.collectView layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].frame.origin.y;
         CGFloat contentOffset = y ? y : scrollView.frame.size.height;
+//        if (scrollView.contentOffset.y >= contentOffset) {
+//            scrollView.contentOffset = CGPointMake(0, contentOffset);
+//            if (self.canScroll) {
+//                self.canScroll = NO;
+//                [NSNotificationCenter.defaultCenter postNotificationName:@"noti" object:self.collectView userInfo:@{@"canScroll": @YES}];
+//            }
+//        } else {
+//            if (!self.canScroll) {
+//                scrollView.contentOffset = CGPointMake(0, contentOffset);
+//            }
+//        }
+        
+        NSLog(@"<>0");
         if (!_canScroll) {
+            NSLog(@"<>1");
             scrollView.contentOffset = CGPointMake(0, contentOffset);
         } else if (scrollView.contentOffset.y >= contentOffset) {
+            NSLog(@"<>2");
             scrollView.contentOffset = CGPointMake(0, contentOffset);
             self.canScroll = NO;
-            [NSNotificationCenter.defaultCenter postNotificationName:@"xixi_noti" object:self.collectView userInfo:@{@"canScroll": @YES}];
+            [NSNotificationCenter.defaultCenter postNotificationName:@"noti" object:self.collectView userInfo:@{@"canScroll": @YES}];
         }
     }
 }
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    return YES;
+}
+
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    CGFloat bottomCellOffset = [_tableView rectForSection:1].origin.y - 64;
+//    if (scrollView.contentOffset.y >= bottomCellOffset) {
+//        scrollView.contentOffset = CGPointMake(0, bottomCellOffset);
+//        if (self.canScroll) {
+//            self.canScroll = NO;
+//            self.contentCell.cellCanScroll = YES;
+//        }
+//    }else{
+//        if (!self.canScroll) {//子视图没到顶部
+//            scrollView.contentOffset = CGPointMake(0, bottomCellOffset);
+//        }
+//    }
+//    self.tableView.showsVerticalScrollIndicator = _canScroll?YES:NO;
+//}
 
 //- (void)setCanScroll:(BOOL)canScroll {
 //    if (_canScroll == canScroll) {
