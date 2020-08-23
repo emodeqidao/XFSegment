@@ -15,6 +15,13 @@
 		FA31F3A624E279C300B62261 /* SectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FA31F3A524E279C300B62261 /* SectionCell.m */; };
 		FA31F3A924E27CB800B62261 /* XFBaseCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA31F3A824E27CB800B62261 /* XFBaseCollectionView.m */; };
 		FA8704D424E2D2F30014F165 /* XFBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8704D324E2D2F30014F165 /* XFBaseTableView.m */; };
+		FA8704D724E2E37D0014F165 /* XFSubListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA8704D624E2E37D0014F165 /* XFSubListViewController.m */; };
+		FAD95C3C24F154380097829D /* TopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD95C3B24F154380097829D /* TopViewController.m */; };
+		FAD95C4824F15A590097829D /* NSString+WidthHeight.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD95C4424F15A590097829D /* NSString+WidthHeight.m */; };
+		FAD95C4924F15A590097829D /* LXSegmentControl.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD95C4524F15A590097829D /* LXSegmentControl.m */; };
+		FAD95C4C24F15AEA0097829D /* UIView+frame.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD95C4A24F15AEA0097829D /* UIView+frame.m */; };
+		FAD95C4F24F15C020097829D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD95C4E24F15C020097829D /* UIKit.framework */; };
+		FAD95C5224F16BA40097829D /* LXHomeSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD95C5124F16BA40097829D /* LXHomeSearchBar.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +41,19 @@
 		FA31F3A824E27CB800B62261 /* XFBaseCollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XFBaseCollectionView.m; sourceTree = "<group>"; };
 		FA8704D224E2D2F30014F165 /* XFBaseTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XFBaseTableView.h; sourceTree = "<group>"; };
 		FA8704D324E2D2F30014F165 /* XFBaseTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XFBaseTableView.m; sourceTree = "<group>"; };
+		FA8704D524E2E37D0014F165 /* XFSubListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XFSubListViewController.h; sourceTree = "<group>"; };
+		FA8704D624E2E37D0014F165 /* XFSubListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XFSubListViewController.m; sourceTree = "<group>"; };
+		FAD95C3A24F154380097829D /* TopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TopViewController.h; sourceTree = "<group>"; };
+		FAD95C3B24F154380097829D /* TopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TopViewController.m; sourceTree = "<group>"; };
+		FAD95C4424F15A590097829D /* NSString+WidthHeight.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+WidthHeight.m"; sourceTree = "<group>"; };
+		FAD95C4524F15A590097829D /* LXSegmentControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXSegmentControl.m; sourceTree = "<group>"; };
+		FAD95C4624F15A590097829D /* NSString+WidthHeight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+WidthHeight.h"; sourceTree = "<group>"; };
+		FAD95C4724F15A590097829D /* LXSegmentControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXSegmentControl.h; sourceTree = "<group>"; };
+		FAD95C4A24F15AEA0097829D /* UIView+frame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+frame.m"; sourceTree = "<group>"; };
+		FAD95C4B24F15AEA0097829D /* UIView+frame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+frame.h"; sourceTree = "<group>"; };
+		FAD95C4E24F15C020097829D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		FAD95C5024F16BA40097829D /* LXHomeSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXHomeSearchBar.h; sourceTree = "<group>"; };
+		FAD95C5124F16BA40097829D /* LXHomeSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXHomeSearchBar.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAD95C4F24F15C020097829D /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -52,6 +73,7 @@
 			children = (
 				FA31F38624E2435C00B62261 /* XFSegment */,
 				FA31F38524E2435C00B62261 /* Products */,
+				FAD95C4D24F15C020097829D /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,8 +88,11 @@
 		FA31F38624E2435C00B62261 /* XFSegment */ = {
 			isa = PBXGroup;
 			children = (
+				FAD95C4324F15A590097829D /* Seg */,
 				FA31F38724E2435C00B62261 /* AppDelegate.h */,
 				FA31F38824E2435C00B62261 /* AppDelegate.m */,
+				FAD95C3A24F154380097829D /* TopViewController.h */,
+				FAD95C3B24F154380097829D /* TopViewController.m */,
 				FA31F3A024E2703700B62261 /* HomeViewController.h */,
 				FA31F3A124E2703700B62261 /* HomeViewController.m */,
 				FA31F39324E2436000B62261 /* Assets.xcassets */,
@@ -81,8 +106,33 @@
 				FA31F3A824E27CB800B62261 /* XFBaseCollectionView.m */,
 				FA8704D224E2D2F30014F165 /* XFBaseTableView.h */,
 				FA8704D324E2D2F30014F165 /* XFBaseTableView.m */,
+				FA8704D524E2E37D0014F165 /* XFSubListViewController.h */,
+				FA8704D624E2E37D0014F165 /* XFSubListViewController.m */,
 			);
 			path = XFSegment;
+			sourceTree = "<group>";
+		};
+		FAD95C4324F15A590097829D /* Seg */ = {
+			isa = PBXGroup;
+			children = (
+				FAD95C5024F16BA40097829D /* LXHomeSearchBar.h */,
+				FAD95C5124F16BA40097829D /* LXHomeSearchBar.m */,
+				FAD95C4B24F15AEA0097829D /* UIView+frame.h */,
+				FAD95C4A24F15AEA0097829D /* UIView+frame.m */,
+				FAD95C4724F15A590097829D /* LXSegmentControl.h */,
+				FAD95C4524F15A590097829D /* LXSegmentControl.m */,
+				FAD95C4624F15A590097829D /* NSString+WidthHeight.h */,
+				FAD95C4424F15A590097829D /* NSString+WidthHeight.m */,
+			);
+			path = Seg;
+			sourceTree = "<group>";
+		};
+		FAD95C4D24F15C020097829D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FAD95C4E24F15C020097829D /* UIKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -154,10 +204,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAD95C3C24F154380097829D /* TopViewController.m in Sources */,
 				FA31F38924E2435C00B62261 /* AppDelegate.m in Sources */,
 				FA31F3A624E279C300B62261 /* SectionCell.m in Sources */,
+				FAD95C4824F15A590097829D /* NSString+WidthHeight.m in Sources */,
+				FA8704D724E2E37D0014F165 /* XFSubListViewController.m in Sources */,
 				FA8704D424E2D2F30014F165 /* XFBaseTableView.m in Sources */,
 				FA31F3A924E27CB800B62261 /* XFBaseCollectionView.m in Sources */,
+				FAD95C4C24F15AEA0097829D /* UIView+frame.m in Sources */,
+				FAD95C5224F16BA40097829D /* LXHomeSearchBar.m in Sources */,
+				FAD95C4924F15A590097829D /* LXSegmentControl.m in Sources */,
 				FA31F39A24E2436000B62261 /* main.m in Sources */,
 				FA31F3A224E2703700B62261 /* HomeViewController.m in Sources */,
 			);

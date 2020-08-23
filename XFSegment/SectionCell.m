@@ -9,48 +9,125 @@
 #import "SectionCell.h"
 
 @interface SectionCell()
-<UITableViewDelegate, UITableViewDataSource>
+//<UITableViewDelegate, UITableViewDataSource>
+<UICollectionViewDelegate, UICollectionViewDataSource>
 @property (nonatomic, assign) BOOL canContentScroll;
 @end
 
 @implementation SectionCell
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"xixi_noti" object:nil];
+}
+
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
         [NSNotificationCenter.defaultCenter addObserverForName:@"xixi_noti" object:self.parentVC.collectView queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification * _Nonnull note) {
+            NSLog(@"通知滚动!");
             BOOL canScroll = [note.userInfo[@"canScroll"] boolValue];
             self.canContentScroll = canScroll;
         }];
         
-        self.tableView = [[XFBaseTableView alloc] initWithFrame:SetFrame(0, 50, frame.size.width, frame.size.height - 50)];
-        self.tableView.delegate = self;
-        self.tableView.dataSource = self;
-        self.tableView.showsVerticalScrollIndicator = NO;
-        [self addSubview:self.tableView];
+        
+        UILabel *sectionLabel = [[UILabel alloc] initWithFrame:SetFrame(0, 0, 100, 50)];
+        sectionLabel.text = @"我是section";
+        sectionLabel.font = [UIFont systemFontOfSize:16.f];
+        sectionLabel.backgroundColor = [UIColor yellowColor];
+        [self addSubview:sectionLabel];
+        
+        
+        [self addSubview:self.collectView];
+        NSLog(@"!!%@", self.collectView);
+//        self.tableView = [[XFBaseTableView alloc] initWithFrame:SetFrame(0, 50, frame.size.width, frame.size.height - 50 - kNavigationBar_HeightForiOS11 -  44)];
+//        self.tableView.delegate = self;
+//        self.tableView.dataSource = self;
+//        self.tableView.showsVerticalScrollIndicator = NO;
+//        [self addSubview:self.tableView];
         
 //        self.tableView.tableFooterView = [UIView new];
     }
     return self;
 }
 
-#pragma mark
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 40;
+- (XFBaseCollectionView *)collectView {
+    if (!_collectView) {
+        
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+        
+        _collectView = [[XFBaseCollectionView alloc] initWithFrame:SetFrame(0, 50, kScreen_Width, self.frame.size.height - 50 - kNavigationBar_HeightForiOS11) collectionViewLayout:flowLayout];
+        _collectView.delegate = self;
+        _collectView.dataSource = self;
+        _collectView.backgroundColor = [UIColor redColor];
+        _collectView.showsVerticalScrollIndicator = NO;
+
+        [_collectView registerClass:UICollectionViewCell.class forCellWithReuseIdentifier:UICollectionViewCell.description];
+    }
+    return _collectView;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"xixi"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"xixi"];
-    }
-    cell.textLabel.text = [NSString stringWithFormat:@"%zd", indexPath.row];
-    return cell;
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return 1;
 }
+
+-(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return 16;
+}
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:UICollectionViewCell.description forIndexPath:indexPath];
+    UILabel *tLabel = [cell viewWithTag:99];
+    if (!tLabel) {
+        tLabel = [[UILabel alloc] initWithFrame:SetFrame(0, 10, 100, 30)];
+        tLabel.textColor = [UIColor redColor];
+        tLabel.tag = 99;
+        [cell.contentView addSubview:tLabel];
+    }
+    tLabel.text = [NSString stringWithFormat:@"%zd", indexPath.item];
+    cell.backgroundColor = [UIColor greenColor];
+    
+    return cell;
+    
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake((kScreen_Width - 2) / 2.f, 100.f);
+    
+}
+
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
+    return 1;
+}
+
+-(CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
+    return 1;
+}
+
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(0, 0, 0, 0);
+}
+
+
+//#pragma mark
+//- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+//    return 40;
+//}
+//
+//- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"xixi"];
+//    if (!cell) {
+//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"xixi"];
+//    }
+//    cell.textLabel.text = [NSString stringWithFormat:@"%zd", indexPath.row];
+//    return cell;
+//}
 
 #pragma mark
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    NSLog(@"_canContentScroll: %d", _canContentScroll);
+    NSLog(@"_contentOffset: %f", scrollView.contentOffset.y);
     if (!_canContentScroll) {
         // 这里通过固定contentOffset，来实现不滚动
         scrollView.contentOffset = CGPointZero;

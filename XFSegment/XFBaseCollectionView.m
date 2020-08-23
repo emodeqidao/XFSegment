@@ -12,11 +12,13 @@
 
 - (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     UIView *view = otherGestureRecognizer.view;
-//    if ([[view superview] isKindOfClass:[WKWebView class]]) {
-//        view = [view superview];
-//    }
-    
-//    if ([_allowGestureSimultaneouslyViews containsObject:view]) {
+////    NSLog(@"%@", view);
+////    if ([[view superview] isKindOfClass:[WKWebView class]]) {
+////        view = [view superview];
+////    }
+////    NSLog(@"!! array: %@", _allowGestureSimultaneouslyViewsArray);
+////    NSLog(@"!!: %@", view);
+//    if ([_allowGestureSimultaneouslyViewsArray containsObject:view]) {
         return YES;
 //    } else {
 //        return NO;

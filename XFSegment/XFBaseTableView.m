@@ -12,6 +12,7 @@
 
 - (BOOL) gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     UIView *view = otherGestureRecognizer.view;
+    NSLog(@"XFBaseTableView:%@", view);
     return YES;
 }
 

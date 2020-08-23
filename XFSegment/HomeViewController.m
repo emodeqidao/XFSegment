@@ -35,6 +35,7 @@
         _collectView.delegate = self;
         _collectView.dataSource = self;
         _collectView.backgroundColor = [UIColor redColor];
+        _collectView.showsVerticalScrollIndicator = NO;
 
         [_collectView registerClass:UICollectionViewCell.class forCellWithReuseIdentifier:UICollectionViewCell.description];
         [_collectView registerClass:SectionCell.class forCellWithReuseIdentifier:SectionCell.description];
@@ -60,7 +61,7 @@
         SectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SectionCell.description forIndexPath:indexPath];
         cell.parentVC = self;
         cell.backgroundColor = [UIColor blackColor];
-        self.collectView.allowGestureSimultaneouslyViews = @[cell.tableView];
+//        self.collectView.allowGestureSimultaneouslyViewsArray = [NSMutableArray arrayWithArray:@[cell.collectView]];
         return cell;
     } else {
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:UICollectionViewCell.description forIndexPath:indexPath];
@@ -73,7 +74,7 @@
     if (indexPath.section == 0) {
         return CGSizeMake((kScreen_Width - 2) / 2.f, 100.f);
     } else {
-        return CGSizeMake(kScreen_Width, self.collectView.frame.size.height - kNavigationBar_HeightForiOS11);
+        return CGSizeMake(kScreen_Width, self.collectView.frame.size.height);
     }
 }
 
@@ -93,10 +94,8 @@
 #pragma mark
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     if (self.collectView.visibleCells.count) {
-        CGFloat y = [self.collectView layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].frame.origin.y - (kNavigationBar_HeightForiOS11);
+        CGFloat y = [self.collectView layoutAttributesForItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:1]].frame.origin.y;
         CGFloat contentOffset = y ? y : scrollView.frame.size.height;
-        NSLog(@"%f - %f", contentOffset , scrollView.contentOffset.y);
-    
         if (!_canScroll) {
             scrollView.contentOffset = CGPointMake(0, contentOffset);
         } else if (scrollView.contentOffset.y >= contentOffset) {
@@ -104,27 +103,16 @@
             self.canScroll = NO;
             [NSNotificationCenter.defaultCenter postNotificationName:@"xixi_noti" object:self.collectView userInfo:@{@"canScroll": @YES}];
         }
-        
-//        if (!_canScroll) {
-////             这里通过固定contentOffset的值，来实现不滚动
-//            scrollView.contentOffset = CGPointMake(0, contentOffset);
-//        } else if (scrollView.contentOffset.y >= contentOffset && y) {
-//            scrollView.contentOffset = CGPointMake(0, contentOffset);
-//            self.canScroll = NO;
-////             通知delegate内容开始可以滚动
-//            [NSNotificationCenter.defaultCenter postNotificationName:@"xixi_noti" object:self.collectView userInfo:@{@"canScroll": @YES}];
-//        }
     }
 }
 
 //- (void)setCanScroll:(BOOL)canScroll {
-//
 //    if (_canScroll == canScroll) {
 //        return;
 //    }
 //    _canScroll = canScroll;
 //
-//    for (UIScrollView *sc in self.collectView.allowGestureSimultaneouslyViews) {
+//    for (UIScrollView *sc in self.collectView.allowGestureSimultaneouslyViewsArray) {
 //        sc.contentOffset = CGPointZero;
 //    }
 //}

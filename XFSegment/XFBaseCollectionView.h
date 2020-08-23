@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface XFBaseCollectionView : UICollectionView
-@property (nonatomic, strong) NSMutableArray *allowGestureSimultaneouslyViews;
+@property (nonatomic, strong) NSMutableArray *allowGestureSimultaneouslyViewsArray;
 @end
 
 NS_ASSUME_NONNULL_END
