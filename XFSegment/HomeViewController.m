@@ -8,10 +8,13 @@
 
 #import "HomeViewController.h"
 #import "SectionCell.h"
+#import "NewSectionCell.h"
+#import "XFSubListViewController.h"
 
 
 @interface HomeViewController ()
 <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@property (nonatomic, strong) XFSubListViewController *tbVC;
 @end
 
 
@@ -38,7 +41,9 @@
         _collectView.showsVerticalScrollIndicator = NO;
 
         [_collectView registerClass:UICollectionViewCell.class forCellWithReuseIdentifier:UICollectionViewCell.description];
-        [_collectView registerClass:SectionCell.class forCellWithReuseIdentifier:SectionCell.description];
+//        [_collectView registerClass:SectionCell.class forCellWithReuseIdentifier:SectionCell.description];
+        [_collectView registerClass:NewSectionCell.class forCellWithReuseIdentifier:NewSectionCell.description];
+
     }
     return _collectView;
 }
@@ -58,12 +63,21 @@
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
-        SectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SectionCell.description forIndexPath:indexPath];
-        cell.parentVC = self;
-        [cell setData];
-        cell.backgroundColor = [UIColor blackColor];
-        self.collectView.allowGestureSimultaneouslyViewsArray = [NSMutableArray arrayWithArray:@[cell.collectView]];
+        NewSectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NewSectionCell.description forIndexPath:indexPath];
+        [self addChildViewController:self.tbVC];
+        self.tbVC.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height -120 );
+        self.tbVC.parentVC = self;
+        [cell.containerView addSubview:self.tbVC.view];
+
+        
         return cell;
+        
+//        SectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:SectionCell.description forIndexPath:indexPath];
+//        cell.parentVC = self;
+//        [cell setData];
+//        cell.backgroundColor = [UIColor blackColor];
+//        self.collectView.allowGestureSimultaneouslyViewsArray = [NSMutableArray arrayWithArray:@[cell.collectView]];
+//        return cell;
     } else {
         UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:UICollectionViewCell.description forIndexPath:indexPath];
         cell.backgroundColor = [UIColor greenColor];
@@ -126,32 +140,11 @@
     return YES;
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    CGFloat bottomCellOffset = [_tableView rectForSection:1].origin.y - 64;
-//    if (scrollView.contentOffset.y >= bottomCellOffset) {
-//        scrollView.contentOffset = CGPointMake(0, bottomCellOffset);
-//        if (self.canScroll) {
-//            self.canScroll = NO;
-//            self.contentCell.cellCanScroll = YES;
-//        }
-//    }else{
-//        if (!self.canScroll) {//子视图没到顶部
-//            scrollView.contentOffset = CGPointMake(0, bottomCellOffset);
-//        }
-//    }
-//    self.tableView.showsVerticalScrollIndicator = _canScroll?YES:NO;
-//}
-
-//- (void)setCanScroll:(BOOL)canScroll {
-//    if (_canScroll == canScroll) {
-//        return;
-//    }
-//    _canScroll = canScroll;
-//
-//    for (UIScrollView *sc in self.collectView.allowGestureSimultaneouslyViewsArray) {
-//        sc.contentOffset = CGPointZero;
-//    }
-//}
+- (XFSubListViewController *)tbVC {
+    if (!_tbVC) {
+        _tbVC = [[XFSubListViewController alloc] init];
+    }
+    return _tbVC;
+}
 
 @end

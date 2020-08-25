@@ -22,6 +22,7 @@
 		FAD95C4C24F15AEA0097829D /* UIView+frame.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD95C4A24F15AEA0097829D /* UIView+frame.m */; };
 		FAD95C4F24F15C020097829D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAD95C4E24F15C020097829D /* UIKit.framework */; };
 		FAD95C5224F16BA40097829D /* LXHomeSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD95C5124F16BA40097829D /* LXHomeSearchBar.m */; };
+		FAD95C5524F3A4D40097829D /* NewSectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FAD95C5424F3A4D40097829D /* NewSectionCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,8 @@
 		FAD95C4E24F15C020097829D /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FAD95C5024F16BA40097829D /* LXHomeSearchBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LXHomeSearchBar.h; sourceTree = "<group>"; };
 		FAD95C5124F16BA40097829D /* LXHomeSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LXHomeSearchBar.m; sourceTree = "<group>"; };
+		FAD95C5324F3A4D40097829D /* NewSectionCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NewSectionCell.h; sourceTree = "<group>"; };
+		FAD95C5424F3A4D40097829D /* NewSectionCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NewSectionCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +111,8 @@
 				FA8704D324E2D2F30014F165 /* XFBaseTableView.m */,
 				FA8704D524E2E37D0014F165 /* XFSubListViewController.h */,
 				FA8704D624E2E37D0014F165 /* XFSubListViewController.m */,
+				FAD95C5324F3A4D40097829D /* NewSectionCell.h */,
+				FAD95C5424F3A4D40097829D /* NewSectionCell.m */,
 			);
 			path = XFSegment;
 			sourceTree = "<group>";
@@ -204,6 +209,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAD95C5524F3A4D40097829D /* NewSectionCell.m in Sources */,
 				FAD95C3C24F154380097829D /* TopViewController.m in Sources */,
 				FA31F38924E2435C00B62261 /* AppDelegate.m in Sources */,
 				FA31F3A624E279C300B62261 /* SectionCell.m in Sources */,
