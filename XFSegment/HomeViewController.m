@@ -15,6 +15,11 @@
 @interface HomeViewController ()
 <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) XFSubListViewController *tbVC;
+
+@property (nonatomic, strong) NSMutableArray *segmentItems;
+@property (nonatomic, strong) NSMutableArray *viewControllers;
+@property (nonatomic, strong) NSMutableArray *allowGestureSimultaneouslyViews;
+@property (nonatomic, assign) NSInteger pageIndex;
 @end
 
 
@@ -25,6 +30,7 @@
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor blueColor];
     self.canScroll = YES;
+    [self initData];
     [self.view addSubview:self.collectView];
     NSLog(@"main collection: %@", self.collectView);
 }
@@ -64,11 +70,21 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 1) {
         NewSectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NewSectionCell.description forIndexPath:indexPath];
-        [self addChildViewController:self.tbVC];
-        self.tbVC.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height -120 );
-        self.tbVC.parentVC = self;
-        [cell.containerView addSubview:self.tbVC.view];
-
+        cell.backgroundColor = [UIColor whiteColor];
+        
+        cell.parentVC = self;
+        
+        [cell.segment setItems:_segmentItems];
+        self.collectView.allowGestureSimultaneouslyViewsArray = _allowGestureSimultaneouslyViews;
+        
+        [self addChildViewController:cell.pageController];
+        cell.viewControllers = _viewControllers;
+        [cell.pageController didMoveToParentViewController:self];
+        if (_pageIndex != NSNotFound &&
+            _segmentItems.count) {
+            cell.pageIndex = _pageIndex;
+            _pageIndex = NSNotFound;
+        }
         
         return cell;
         
@@ -123,12 +139,9 @@
 //            }
 //        }
         
-        NSLog(@"<>0");
         if (!_canScroll) {
-            NSLog(@"<>1");
             scrollView.contentOffset = CGPointMake(0, contentOffset);
         } else if (scrollView.contentOffset.y >= contentOffset) {
-            NSLog(@"<>2");
             scrollView.contentOffset = CGPointMake(0, contentOffset);
             self.canScroll = NO;
             [NSNotificationCenter.defaultCenter postNotificationName:@"noti" object:self.collectView userInfo:@{@"canScroll": @YES}];
@@ -136,15 +149,26 @@
     }
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
-    return YES;
-}
-
-- (XFSubListViewController *)tbVC {
-    if (!_tbVC) {
-        _tbVC = [[XFSubListViewController alloc] init];
+#pragma mark
+- (void)initData {
+    
+    NSMutableArray *arrayM = NSMutableArray.array;
+    NSMutableArray *arrayC = NSMutableArray.array;
+    NSMutableArray *arrayI = NSMutableArray.array;
+    NSArray *arr = @[@"红色", @"蓝色", @"紫色", @"黄色", @"字很多字很多字很多字很多"];
+    for (int i = 0; i < arr.count; i++) {
+        XFSubListViewController *vc = [XFSubListViewController new];
+        vc.parentVC = self;
+        
+        [arrayM addObject:vc];
+        [arrayC addObject:vc.tableView];
+        
+        [arrayI addObject:[arr objectAtIndex:i]];
     }
-    return _tbVC;
+ 
+    _segmentItems = arrayI.copy;
+    _viewControllers = arrayM.copy;
+    _allowGestureSimultaneouslyViews = arrayC;
 }
 
 @end

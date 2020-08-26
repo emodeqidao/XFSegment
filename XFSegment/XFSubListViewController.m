@@ -99,11 +99,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.tableView = [[XFBaseTableView alloc] initWithFrame:SetFrame(0, 50, kScreen_Width, kScreen_Height - 50 - kNavigationBar_HeightForiOS11 - 44)];
-    self.tableView.delegate = (id)self;
-    self.tableView.dataSource = (id)self;
-    self.tableView.showsVerticalScrollIndicator = NO;
+    
     [self.view addSubview:self.tableView];
+}
+
+- (XFBaseTableView *)tableView {
+    if (!_tableView) {
+        _tableView = [[XFBaseTableView alloc] initWithFrame:SetFrame(0, 0, kScreen_Width, kScreen_Height - kNavigationBar_HeightForiOS11 - 44.f - 50)];
+        _tableView.delegate = (id)self;
+        _tableView.dataSource = (id)self;
+        _tableView.showsVerticalScrollIndicator = NO;
+    }
+    
+    return _tableView;
 }
 
 #pragma mark
